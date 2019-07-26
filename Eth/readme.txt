@@ -24,6 +24,8 @@
  - 계정생성
   현재위치는 C:\eth_net\Geth
   $ geth --datadir "./ethereum/data" account new 
+  0x32B5962949CB8722a8dFF70c3B788953dBCb0dC6
+  0x195652A411AAaADfEFe48cd1E5A1d38376612474
  - 계정 확인
   $ geth --datadir "./ethereum/data" account list
  - ICO 행사에 투자를 받아서(예를들면) 1명이 돈을내고 주주가 되었다
@@ -48,17 +50,18 @@
    --nodiscover                 : 제네시스 블럭과 네트워크 ID에 있는 블록 연결 금지
    --networkid 1900             : 네트워크 아이디
    --nat "any"                  : 외부 주소와 내부 주소간 변화 처리 
+   --allow-insecure-unlock      : 계좌 언락 허가 추가
    --rpcapi "db, eth, net, web3, miner, personal" : 콘솔로 오픈이 되는 api 목록, web3=>js사용가능
    console                      : 콘솔모드 오픈, 모든 출력은 콘솔로 진행
 
-  $ geth --identity "PrivateNetwork" --datadir "./ethereum/data" --port "30303" --rpc --rpcaddr 0.0.0.0 --rpcport "8123" --rpccorsdomain "*" --nodiscover  --networkid 1900 --nat "any" --rpcapi "db, eth, net, web3, miner, personal" console
+  $ geth --identity "PrivateNetwork" --datadir "./ethereum/data" --port "30303" --rpc --rpcaddr 0.0.0.0 --rpcport "8123" --rpccorsdomain "*" --nodiscover  --networkid 1900 --nat "any" --rpcapi "db, eth, net, web3, miner, personal" --allow-insecure-unlock console
  
  - 원격 접속
   $ geth attach http://localhost:8123
  - 계좌 확인
   $ eth.accounts
  - 잔고 확인
-  $ eth.getBalance( eth.accounts[0] )
+  $ eth.getBalance( eth.accouts[0] )
 
  [리눅스상에서 네트워크 구축]
  - 이더리움 설치
@@ -78,6 +81,8 @@
     0x3166fA091D6D95B190e2Fc7CaFF77e09E16e5311
      0xE4932c90DdCfb890E41be0e26f143C9DE1c12a75
 
+     0xca77e191fcd6f2bc99c555124623879c4e4d3b2b
+
 3. 이더리움의 사설 네트워크 외부에서 연동하는 방법(RPC)
  - 전자지갑 구현
   1) PRC 접속을 통해서 명령응ㄹ 전송하여 수행
@@ -92,3 +97,9 @@
  - 전자지갑
  - 전자투표
  - 배팅시스템.. 
+
+eth.sendTransaction({
+    from:eth.accounts[0],
+    to:eth.accounts[1],
+    value:web3.toWei(1, 'ether')
+  })
